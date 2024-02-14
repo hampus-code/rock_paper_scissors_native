@@ -122,7 +122,7 @@ const Game = () => {
       </Text>
       <View style={styles.space}></View>
       <View style={styles.button}>
-        <TouchableOpacity onPress={() => setRestartGame}>
+        <TouchableOpacity onPress={() => setRestartGame()}>
           <Text style={styles.buttonText}>Restart Game</Text>
         </TouchableOpacity>
       </View>
