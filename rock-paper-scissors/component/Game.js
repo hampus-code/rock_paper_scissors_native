@@ -87,7 +87,7 @@ const Game = () => {
       <View style={styles.space}></View>
       <View style={styles.buttonContainer}>
         <View style={styles.button}>
-          <TouchableOpacity
+          <TouchableOpacity //Knapp för att välja "Rock"
             onPress={() => getPlayerChoice("Rock")}
             disabled={buttonsDisable}
           >
@@ -96,7 +96,7 @@ const Game = () => {
         </View>
         <View style={styles.space}></View>
         <View style={styles.button}>
-          <TouchableOpacity
+          <TouchableOpacity //Knapp för att välja "Paper"
             onPress={() => getPlayerChoice("Paper")}
             disabled={buttonsDisable}
           >
@@ -105,7 +105,7 @@ const Game = () => {
         </View>
         <View style={styles.space}></View>
         <View style={styles.button}>
-          <TouchableOpacity
+          <TouchableOpacity //Knapp för att välja "Scissors"
             onPress={() => getPlayerChoice("Scissors")}
             disabled={buttonsDisable}
           >
