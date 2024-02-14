@@ -22,7 +22,7 @@ const App = () => {
 
   return (
     <LinearGradient
-      colors={colorScheme === "dark" ? LIGHT_COLORS : DARK_COLORS}
+      colors={colorScheme === "light" ? LIGHT_COLORS : DARK_COLORS}
       style={styles.container}
     >
       <TouchableOpacity onPress={toggleColorScheme} style={styles.button}>

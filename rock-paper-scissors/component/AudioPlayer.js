@@ -7,6 +7,7 @@ export default function audioPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
 
   async function playSound() {
+    //Async function som hanterar uppspelningen av mp3-filen
     if (sound) {
       if (isPlaying) {
         await sound.pauseAsync();
@@ -39,6 +40,12 @@ export default function audioPlayer() {
 
   return (
     <View style={styles.container}>
+      {" "}
+      {
+        {
+          /* Knapp för att spela och pausa ljudet från mp3-filen */
+        }
+      }
       <TouchableOpacity style={styles.button} onPress={playSound}>
         <Text style={styles.text}>
           {isPlaying ? "Pause Song" : "Play Song"}

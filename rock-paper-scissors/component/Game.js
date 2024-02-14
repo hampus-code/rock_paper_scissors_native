@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   space: {
-    height: 20,
+    height: 15,
   },
   button: {
     borderWidth: 1,
