@@ -9,6 +9,7 @@ const Game = () => {
   const [computerChoice, setComputerChoice] = useState(null);
   const [playerWonMessage, setPlayerWonMessage] = useState(null);
   const [computerWonMessage, setComputerWonMessage] = useState(null);
+  const [buttonsDisable, setButtonsDisable] = useState(false);
 
   const typeOfChoices = ["Rock", "Paper", "Scissors"];
 
@@ -44,6 +45,7 @@ const Game = () => {
       /* setPlayerScore(0);
       setComputerScore(0); */
       setPlayerWonMessage("Player won! Restart game!"); // meddelande ifall spelaren vinner
+      setButtonsDisable(true);
     }
 
     if (
@@ -54,6 +56,7 @@ const Game = () => {
       /* setPlayerScore(0);
       setComputerScore(0); */
       setComputerWonMessage("Computer won! Restart game!"); // meddelande ifall datorn vinner
+      setButtonsDisable(true);
     }
 
     //function för att starta om hela spelet
@@ -65,6 +68,7 @@ const Game = () => {
       setComputerChoice(null);
       setPlayerWonMessage(null);
       setComputerWonMessage(null);
+      setButtonsDisable(false);
     };
 
     setComputerChoice(computerChoice);
@@ -82,19 +86,28 @@ const Game = () => {
       <View style={styles.space}></View>
       <View style={styles.buttonContainer}>
         <View style={styles.button}>
-          <TouchableOpacity onPress={() => getPlayerChoice("Rock")}>
+          <TouchableOpacity
+            onPress={() => getPlayerChoice("Rock")}
+            disabled={buttonsDisable}
+          >
             <Text style={styles.buttonText}>Rock</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.space}></View>
         <View style={styles.button}>
-          <TouchableOpacity onPress={() => getPlayerChoice("Paper")}>
+          <TouchableOpacity
+            onPress={() => getPlayerChoice("Paper")}
+            disabled={buttonsDisable}
+          >
             <Text style={styles.buttonText}>Paper</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.space}></View>
         <View style={styles.button}>
-          <TouchableOpacity onPress={() => getPlayerChoice("Scissors")}>
+          <TouchableOpacity
+            onPress={() => getPlayerChoice("Scissors")}
+            disabled={buttonsDisable}
+          >
             <Text style={styles.buttonText}>Scissors</Text>
           </TouchableOpacity>
         </View>
