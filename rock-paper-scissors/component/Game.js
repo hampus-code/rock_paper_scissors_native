@@ -1,5 +1,6 @@
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { useState } from "react";
+import AudioPlayer from "../component/AudioPlayer";
 
 const Game = () => {
   const [gameStarted, setGamestarted] = useState(false);
@@ -139,6 +140,8 @@ const Game = () => {
           <Text style={styles.buttonText}>Restart Game</Text>
         </TouchableOpacity>
       </View>
+      <View style={styles.space}></View>
+      <AudioPlayer />
     </View>
   );
 };
