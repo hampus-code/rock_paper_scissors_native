@@ -1,6 +1,11 @@
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import { useState } from "react";
-import AudioPlayer from "../component/AudioPlayer";
+import { useState, useEffect } from "react";
+import AudioPlayer from "../component/AudioPlayer"; //Importerar ljudcomponenten
+import { getTime } from "./FetchTime";
+
+//Ska AudioPlayer importeras till App.js? Eller går det bra att det är till Game.js?
+//Fråga Onur(?) eller Marcus
+//I readme, behövs det skrivas installera npm som instruktion?
 
 const Game = () => {
   const [gameStarted, setGamestarted] = useState(false);
@@ -11,6 +16,15 @@ const Game = () => {
   const [playerWonMessage, setPlayerWonMessage] = useState(null);
   const [computerWonMessage, setComputerWonMessage] = useState(null);
   const [buttonsDisable, setButtonsDisable] = useState(false);
+
+  const [currentTime, setCurrentTime] = useState(null);
+
+  useEffect(() => {
+    getTime().then((data) => {
+      // Calling getTime within useEffect
+      setCurrentTime(data.datetime);
+    });
+  }, []);
 
   const typeOfChoices = ["Rock", "Paper", "Scissors"];
 
@@ -23,8 +37,8 @@ const Game = () => {
     //jämför valen som spelare och dator gör för att kunna avgöra vem som får poäng
     const computerChoice = getRandomComputerChioce();
 
+    // if-sats för alla val där spelaren vinner
     if (
-      // if-sats för alla val där spelaren vinner
       (playerChoice === "Rock" && computerChoice === "Scissors") ||
       (playerChoice === "Paper" && computerChoice === "Rock") ||
       (playerChoice === "Scissors" && computerChoice === "Paper")
@@ -38,24 +52,20 @@ const Game = () => {
       setComputerScore((scoreUpdate) => scoreUpdate + 1); // uppdaterar datorns ställning med en poäng
     }
 
+    // här nollas spelarens och datorns poäng och spelet startar på så sätt om ifall spelaren vinner med 2-1 eller 3-0
     if (
-      // här nollas spelarens och datorns poäng och spelet startar på så sätt om ifall spelaren vinner med 2-1 eller 3-0
       (playerScore === 2 && computerScore === 1) ||
       (playerScore === 3 && computerScore === 0)
     ) {
-      /* setPlayerScore(0);
-      setComputerScore(0); */
       setPlayerWonMessage("Player won! Restart game!"); // meddelande ifall spelaren vinner
       setButtonsDisable(true);
     }
 
+    // här nollas spelarens och datorns poäng och spelet startar på så sätt om ifall datorn vinner med 2-1 eller 3-0
     if (
-      // här nollas spelarens och datorns poäng och spelet startar på så sätt om ifall datorn vinner med 2-1 eller 3-0
       (playerScore === 1 && computerScore === 2) ||
       (playerScore === 0 && computerScore === 3)
     ) {
-      /* setPlayerScore(0);
-      setComputerScore(0); */
       setComputerWonMessage("Computer won! Restart game!"); // meddelande ifall datorn vinner
       setButtonsDisable(true);
     }
@@ -142,6 +152,9 @@ const Game = () => {
       </View>
       <View style={styles.space}></View>
       <AudioPlayer />
+      <View style={styles.container}>
+        {currentTime && <Text>Current Time: {currentTime}</Text>}
+      </View>
     </View>
   );
 };
@@ -151,7 +164,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    paddingTop: 50,
+    paddingTop: 10,
   },
   headerText: {
     fontSize: 30,
@@ -161,6 +174,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
   },
+  //Ger utrymme mellan bland annat text och knapparna
   space: {
     height: 15,
   },

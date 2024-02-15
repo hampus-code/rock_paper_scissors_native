@@ -5,18 +5,21 @@ import {
   TouchableOpacity,
   Appearance,
 } from "react-native";
-import Game from "./component/Game";
-import { LinearGradient } from "expo-linear-gradient";
+import Game from "./component/Game"; //Importerar Game.js componenten
+import { LinearGradient } from "expo-linear-gradient"; //importerar biblioteket LinearGradient
 import { useState } from "react";
 
 const App = () => {
+  //useState för att hantera Light Mode/Dark Mode
   const [colorScheme, setColorScheme] = useState(Appearance.getColorScheme());
 
+  //Function för att bestämma om det är Light Mode eller Dark Mode som visas
   const toggleColorScheme = () => {
     const newColorScheme = colorScheme === "dark" ? "light" : "dark";
     setColorScheme(newColorScheme);
   };
 
+  //Variabler som innehåller färgerna för Light Mode och Dark Mode
   const DARK_COLORS = ["#4c669f", "#3b5998", "#192f6a"];
   const LIGHT_COLORS = ["#aa4b6b", "#6b6b83", "#3b8d99"];
 

@@ -38,14 +38,9 @@ export default function audioPlayer() {
       : undefined;
   }, [sound]);
 
+  /* Knapp för att spela och pausa ljudet från mp3-filen */
   return (
     <View style={styles.container}>
-      {" "}
-      {
-        {
-          /* Knapp för att spela och pausa ljudet från mp3-filen */
-        }
-      }
       <TouchableOpacity style={styles.button} onPress={playSound}>
         <Text style={styles.text}>
           {isPlaying ? "Pause Song" : "Play Song"}
