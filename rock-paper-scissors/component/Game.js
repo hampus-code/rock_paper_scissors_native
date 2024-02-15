@@ -1,9 +1,9 @@
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { useState, useEffect } from "react";
-import AudioPlayer from "../component/AudioPlayer"; //Importerar ljudcomponenten
-import { getTime } from "./FetchTime";
+import AudioPlayer from "../component/AudioPlayer";
+import { getTime } from "../component/FetchTime";
 
-//Ska AudioPlayer importeras till App.js? Eller går det bra att det är till Game.js?
+//Ska alla components importeras till App.js? Eller går det bra att det är till Game.js?
 //Fråga Onur(?) eller Marcus
 //I readme, behövs det skrivas installera npm som instruktion?
 
@@ -15,29 +15,30 @@ const Game = () => {
   const [computerChoice, setComputerChoice] = useState(null);
   const [playerWonMessage, setPlayerWonMessage] = useState(null);
   const [computerWonMessage, setComputerWonMessage] = useState(null);
-  const [buttonsDisable, setButtonsDisable] = useState(false);
+  const [buttonsDisable, setButtonsDisable] = useState(false); //useState för att få knappar att sluta fungera
 
   const [currentTime, setCurrentTime] = useState(null);
 
+  //Använder useEffect för att hämta aktuellt datum och tid
   useEffect(() => {
     getTime().then((data) => {
-      // Calling getTime within useEffect
       setCurrentTime(data.datetime);
     });
   }, []);
 
   const typeOfChoices = ["Rock", "Paper", "Scissors"];
 
+  //Tar fram ett slumpat val mellan rock, paper och scissors åt datorn
   const getRandomComputerChioce = () => {
     const randomIndex = Math.floor(Math.random() * typeOfChoices.length);
     return typeOfChoices[randomIndex];
-  }; //Tar fram ett slumpat val mellan rock, paper och scissors åt datorn
+  };
 
+  //jämför valen som spelare och dator gör för att kunna avgöra vem som får poäng
   const getPlayerChoice = (playerChoice) => {
-    //jämför valen som spelare och dator gör för att kunna avgöra vem som får poäng
     const computerChoice = getRandomComputerChioce();
 
-    // if-sats för alla val där spelaren vinner
+    // if-sats för alla val där spelaren och datorn vinner
     if (
       (playerChoice === "Rock" && computerChoice === "Scissors") ||
       (playerChoice === "Paper" && computerChoice === "Rock") ||
@@ -45,29 +46,11 @@ const Game = () => {
     ) {
       setPlayerScore((scoreUpdate) => scoreUpdate + 1); // uppdaterar spelarens ställning med en poäng
     } else if (
-      (playerChoice === "Rock" && computerChoice === "Paper") || // if-sats för alla val där datorn vinner
+      (playerChoice === "Rock" && computerChoice === "Paper") ||
       (playerChoice === "Paper" && computerChoice === "Scissors") ||
       (playerChoice === "Scissors" && computerChoice === "Rock")
     ) {
       setComputerScore((scoreUpdate) => scoreUpdate + 1); // uppdaterar datorns ställning med en poäng
-    }
-
-    // här nollas spelarens och datorns poäng och spelet startar på så sätt om ifall spelaren vinner med 2-1 eller 3-0
-    if (
-      (playerScore === 2 && computerScore === 1) ||
-      (playerScore === 3 && computerScore === 0)
-    ) {
-      setPlayerWonMessage("Player won! Restart game!"); // meddelande ifall spelaren vinner
-      setButtonsDisable(true);
-    }
-
-    // här nollas spelarens och datorns poäng och spelet startar på så sätt om ifall datorn vinner med 2-1 eller 3-0
-    if (
-      (playerScore === 1 && computerScore === 2) ||
-      (playerScore === 0 && computerScore === 3)
-    ) {
-      setComputerWonMessage("Computer won! Restart game!"); // meddelande ifall datorn vinner
-      setButtonsDisable(true);
     }
 
     //function för att starta om hela spelet
@@ -79,13 +62,32 @@ const Game = () => {
       setComputerChoice(null);
       setPlayerWonMessage(null);
       setComputerWonMessage(null);
-      setButtonsDisable(false);
+      setButtonsDisable(false); //Aktiverar knapparna igen så man kan spela spelet igen
     };
 
     setComputerChoice(computerChoice);
     setPlayerChoice(playerChoice);
     setGamestarted(true); // ser till så att spelet startar
   };
+
+  // här nollas spelarens och datorns poäng och spelet startar på så sätt om när någon vinner med 2-1 eller 2-0
+  useEffect(() => {
+    if (
+      (playerScore === 2 && computerScore === 1) ||
+      (playerScore === 2 && computerScore === 0)
+    ) {
+      setPlayerWonMessage("Player won! Restart game!"); // meddelande ifall spelaren vinner
+      setButtonsDisable(true); //När någon vinner så avaktiveras knapparna för att spela
+    }
+
+    if (
+      (playerScore === 1 && computerScore === 2) ||
+      (playerScore === 0 && computerScore === 2)
+    ) {
+      setComputerWonMessage("Computer won! Restart game!"); // meddelande ifall datorn vinner
+      setButtonsDisable(true); //När någon vinner så avaktiveras knapparna för att spela
+    }
+  }, [playerScore, computerScore]);
 
   return (
     <View style={styles.container}>

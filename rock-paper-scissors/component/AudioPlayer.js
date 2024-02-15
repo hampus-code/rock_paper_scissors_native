@@ -6,8 +6,8 @@ export default function audioPlayer() {
   const [sound, setSound] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
 
+  //Async function som hanterar uppspelningen av mp3-filen
   async function playSound() {
-    //Async function som hanterar uppspelningen av mp3-filen
     if (sound) {
       if (isPlaying) {
         await sound.pauseAsync();
@@ -38,7 +38,7 @@ export default function audioPlayer() {
       : undefined;
   }, [sound]);
 
-  /* Knapp för att spela och pausa ljudet från mp3-filen */
+  //Knapp för att spela och pausa ljudet från mp3-filen
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={playSound}>
