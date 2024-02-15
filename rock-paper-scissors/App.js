@@ -5,8 +5,8 @@ import {
   TouchableOpacity,
   Appearance,
 } from "react-native";
-import Game from "./component/Game"; //Importerar Game.js componenten
-import { LinearGradient } from "expo-linear-gradient"; //importerar biblioteket LinearGradient
+import Game from "./component/Game";
+import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
 
 const App = () => {

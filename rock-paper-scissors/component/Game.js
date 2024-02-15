@@ -3,10 +3,6 @@ import { useState, useEffect } from "react";
 import AudioPlayer from "../component/AudioPlayer";
 import { getTime } from "../component/FetchTime";
 
-//Ska alla components importeras till App.js? Eller går det bra att det är till Game.js?
-//Fråga Onur(?) eller Marcus
-//I readme, behövs det skrivas installera npm som instruktion?
-
 const Game = () => {
   const [gameStarted, setGamestarted] = useState(false);
   const [playerScore, setPlayerScore] = useState(0);
@@ -99,7 +95,7 @@ const Game = () => {
       <View style={styles.space}></View>
       <View style={styles.buttonContainer}>
         <View style={styles.button}>
-          <TouchableOpacity //Knapp för att välja "Rock"
+          <TouchableOpacity
             onPress={() => getPlayerChoice("Rock")}
             disabled={buttonsDisable}
           >
@@ -108,7 +104,7 @@ const Game = () => {
         </View>
         <View style={styles.space}></View>
         <View style={styles.button}>
-          <TouchableOpacity //Knapp för att välja "Paper"
+          <TouchableOpacity
             onPress={() => getPlayerChoice("Paper")}
             disabled={buttonsDisable}
           >
@@ -117,7 +113,7 @@ const Game = () => {
         </View>
         <View style={styles.space}></View>
         <View style={styles.button}>
-          <TouchableOpacity //Knapp för att välja "Scissors"
+          <TouchableOpacity
             onPress={() => getPlayerChoice("Scissors")}
             disabled={buttonsDisable}
           >
@@ -127,25 +123,15 @@ const Game = () => {
       </View>
       <View style={styles.space}></View>
       <Text style={styles.text}>You chose: {playerChoice}</Text>
-      {/* Här visas valet som spelaren gjorde, alltså knappen spelare valde */}
       <View style={styles.space}></View>
       <Text style={styles.text}>Your score: {playerScore}</Text>
-      {/* Här visas spelarens poäng */}
       <View style={styles.space}></View>
       <Text style={styles.text}>Computer chose: {computerChoice}</Text>
-      {/* Här visas valet som datorn gjorde, alltså det slumpade valet*/}
       <View style={styles.space}></View>
       <Text style={styles.text}>Computer score: {computerScore}</Text>
-      {/* Här visas datorns poäng */}
       <View style={styles.space}></View>
-      <Text style={styles.text}>
-        Who won?
-        {/* Beroende på vem som vann så ska rätt meddelande visas */}
-      </Text>
-      <Text style={styles.text}>
-        {playerWonMessage || computerWonMessage}
-        {/* Beroende på vem som vann så ska rätt meddelande visas */}
-      </Text>
+      <Text style={styles.text}>Who won?</Text>
+      <Text style={styles.text}>{playerWonMessage || computerWonMessage}</Text>
       <View style={styles.space}></View>
       <View style={styles.button}>
         <TouchableOpacity onPress={() => setRestartGame()}>
